@@ -1,5 +1,8 @@
+#!/usr/bin/python
+
 import time
 import random
+
 class FlowMeter():
   PINTS_IN_A_LITER = 2.11338
   GAL_IN_A_LITER = 0.26417

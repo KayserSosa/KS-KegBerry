@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # intro notes here
 # created by, etc...
 
@@ -52,7 +54,7 @@ beer2OG = "OG: Beer2 SG" # notes about layout here
 beer2ibu = "IBU: Beer2" # notes about layout here
 beer2abv = "ABV: Beer2%/VOL" # notes about layout here
 beer2glass = "Beer2 Glass" # notes about layout here
-beer2glasspic = pint # select from Beer Glass Variables
+beer2glasspic = pilsner # select from Beer Glass Variables
 		
 
 # Beer 3 (Right Tap) Variables =========================================================================================================

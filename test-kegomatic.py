@@ -1,9 +1,14 @@
+#!/usr/bin/python
+
 # intro notes here
 # created by, etc...
 
 
 # instead of tweet, email or post value incase of power outage or reboot and a way to add to total
+	# or find a way to keep values if power lost, store current values to another file, check file before reloading
 # add temp, date, time to bottom
+# justify text, left, right, center
+#maybe rotating backgrounds? if possible
 
 
 # Imports ======================================================================================================================
@@ -20,9 +25,9 @@ from beerinfo import *
 
 # GPIO Setup ===================================================================================================================
 GPIO.setmode(GPIO.BCM) # use real GPIO numbering
-GPIO.setup(23,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Left Tap
-GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Middle Tap
-GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap
+GPIO.setup(23,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Left Tap, Beer 1
+GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Middle Tap, Beer 2
+GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 # Flow Meter Wiring: Red = 5-24VDC, Black = Ground, Yellow = GPIO Pin
 
 
@@ -37,24 +42,29 @@ pygame.display.set_caption('KayserSosa Kegberry')
 
 
 # Hide the Mouse ===============================================================================================================
-pygame.mouse.set_visible(False) # only use with pi
+pygame.mouse.set_visible(False)
 
 
 # Flow Meters Setup ============================================================================================================
-flowMeter1 = FlowMeter('gallon', ["beer"]) # Left Tap
-flowMeter2 = FlowMeter('gallon', ["beer"]) # Middle Tap
-flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap
-# Change input to one of the following for different readings: liter, gallon, pint
+flowMeter1 = FlowMeter('gallon', ["beer"]) # Left Tap, Beer 1
+flowMeter2 = FlowMeter('gallon', ["beer"]) # Middle Tap, Beer 2
+flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
+# Inputs - FlowMeter('displayFormat', ['beverage'])
+# displayFormat (select ONE): liter, pint, gallon
+# beverage = beer
 
 
 # Colors Setup =================================================================================================================
+# http://www.rapidtables.com/web/color/RGB_Color.htm
 BLACK = (0,0,0)
 WHITE = (255,255,255)
-TGREEN = (80, 200, 100) # PC Terminal Green
+TGREEN = (80,200,100) # PC Terminal Green
+RED = (255,0,0)
+ORANGE = (255,128,0)
 
 # Text Color for each beer
-BEER1Text = TGREEN
-BEER2Text = WHITE
+BEER1Text = ORANGE
+BEER2Text = RED
 BEER3Text = WHITE
 
 # Text Backgroud Color for each beer
@@ -64,7 +74,7 @@ BEER3Bg = BLACK
 
 
 # Window Surface Setup =========================================================================================================
-screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32) # use fullscreen for pi only
+screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32)
 windowInfo = pygame.display.Info()
 
 #screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT)) # use for windows testing only
@@ -74,51 +84,9 @@ screenfont = pygame.font.SysFont(None, FONTSIZE) # may not be needed
 
 
 # Backgrounds Setup ============================================================================================================
+#background = pygame.Surface(screen.get_size())
+#background = background.convert()
 background = pygame.image.load('Beer-Background.jpg')
-#maybe rotating backgrounds? if possible
-
-
-# Word Wrap ====================================================================================================================
-# draw some text into an area of a surface, automatically wraps words, returns any text that didn't get blitted
-
-# may not need, or need to review
-#def drawText(surface, text, color, rect, font, aa=False, bkg=None):
-#	rect = Rect(rect)
-#	y = rect.top
-#	lineSpacing = -2
- 
-	# get the height of the font
-#	fontHeight = font.size("Tg")[1]
- 
-#	while text:
-#		i = 1
- 
-		# determine if the row of text will be outside our area
- #       if y + fontHeight > rect.bottom:
-#			break
- 
-        # determine maximum width of line
-#       while font.size(text[:i])[0] < rect.width and i < len(text):
-#			i += 1
- 
-        # if we've wrapped the text, then adjust the wrap to the last word      
-#       if i < len(text): 
-#			i = text.rfind(" ", 0, i) + 1
- 
-        # render the line and blit it to the surface
-#        if bkg:
-#			image = font.render(text[:i], 1, color, bkg)
-#			image.set_colorkey(bkg)
-#        else:
-#			image = font.render(text[:i], aa, color)
- 
-#        surface.blit(image, (rect.left, y))
-#        y += fontHeight + lineSpacing
- 
-        # remove the text we just blitted
-#        text = text[i:]
- 
-#return text
 
 
 # Rendering ====================================================================================================================
@@ -294,17 +262,16 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
 	#justiry right testing
 	
-	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render("right justified?", True, BEER3Text, BEER3Bg)
-	newrendered = rendered.get_rect(right=(532, 600)
+		
+	#screenfont = pygame.font.SysFont(None, 35)
+	#text = screenfont.render("right justified test", True, BEER3Text, BEER3Bg)
+	#textpos = text.get_rect()
+	#textpos.centerx = background.get_rect().centerx
+	#screen.blit(text, textpos)
+	
+	#newrendered = rendered.get_rect(right=(532, 600)
 	#newrendered.right = 500
-	screen.blit(rendered, newrendered)
-	
-	
-	
-	
-	
-
+	#screen.blit(rendered, newrendered)
 	
 	# Kegerator Temp ===========================================================================================================
 	# right justified temp
@@ -313,15 +280,15 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(time.strftime("%I:%M:%S %p - %Y/%m/%d"), True, WHITE, BLACK)
 	screen.blit(rendered, (0, 575))
-	# may be wrong due to internet blocking, unblock and try
-	
+	# time may be wrong due to internet blocking, unblock and try
 	
 	# Display everything
 	pygame.display.flip()
 
     
 #what is this doing? =======================================================================================================
-  
+# is it needed
+
 # Beer, on Pin 23.
 def doAClick1(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
@@ -340,9 +307,9 @@ def doAClick3(channel):
   if flowMeter3.enabled == True:
     flowMeter3.update(currentTime)
 
-GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer, on Pin 23
-GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer, on Pin 24
-GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer, on Pin 24
+GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
+GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
+GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
 
 # Main Never Ending Loop =======================================================================================================
@@ -368,7 +335,8 @@ while True:
   
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   
-	# reset flow meter after each pour (2 secs of inactivity)
+	# is this needed? ====================================================================
+	# Reset flowmeters after each pour (2 secs of inactivity)
 	if (flowMeter1.thisPour <= 0.23 and currentTime - flowMeter1.lastClick > 2000):
 		flowMeter1.thisPour = 0.0
     
