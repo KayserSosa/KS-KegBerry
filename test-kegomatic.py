@@ -35,7 +35,8 @@ GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Middle Tap, Beer 2
 GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 # Flow Meter Wiring: Red = 5-24VDC, Black = Ground, Yellow = GPIO Pin
 
-# FILE ACCESS CONSTANTS ========================================================================================================
+
+# File Access Constrants =======================================================================================================
 FILENAME = 'flowMeterValues.txt'
 FLOW1 = 'FLOW1: '
 FLOW2 = 'FLOW2: '
@@ -66,8 +67,7 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 
 
 # Read values from the flowMeterValues.txt file =================================================================================
- # may need to change file string to include folder path
-with open(FILENAME,'r') as f:
+with open(FILENAME,'r') as f: # may need to change file string to include folder path
 	for line in f:
 		if line[:6] == FLOW1:
 			if flowMeter1.enabled == True:
