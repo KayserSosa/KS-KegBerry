@@ -67,7 +67,10 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 
 
 # Read values from the flowMeterValues.txt file =================================================================================
-with open(FILENAME,'r') as f: # may need to change file string to include folder path
+
+#http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python
+
+with open(FILENAME,'r') as f: # may need to change file string to include folder path, file will stay in same dir
 	for line in f:
 		if line[:6] == FLOW1:
 			if flowMeter1.enabled == True:
@@ -331,7 +334,7 @@ GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
 
-# Erase and save new data =======================================================================================================
+# Erase & Save Text File Data ==================================================================================================
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f = open(FILENAME, 'w')
 	if flowMeter1.enabled == True:
@@ -344,6 +347,9 @@ def saveValues(flowMeter1, flowMeter2, flowMeter3):
 
 
 # Main Never Ending Loop =======================================================================================================
+
+# are all the elif events needed?
+
 while True:
 	# Handle keyboard events
 	for event in pygame.event.get():
@@ -366,7 +372,8 @@ while True:
   
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   
-	# is this needed? ====================================================================
+  
+	# is this section still needed? ====================================================================
 	# Reset flowmeters after each pour (2 secs of inactivity)
 	if (flowMeter1.thisPour <= 0.23 and currentTime - flowMeter1.lastClick > 2000):
 		flowMeter1.thisPour = 0.0
@@ -376,6 +383,8 @@ while True:
 		
 	if (flowMeter3.thisPour <= 0.23 and currentTime - flowMeter3.lastClick > 2000):
 		flowMeter3.thisPour = 0.0
+
+
 
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont, 
