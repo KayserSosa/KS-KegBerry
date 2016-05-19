@@ -11,6 +11,11 @@
 #maybe rotating backgrounds? if possible
 
 
+#also, don't want to make another pull request, but test-kegomatic.py, lines 374 - 384
+#you ask if they're needed
+#not necessarily. That's resetting the "current pour" values. If you're not gonna use it, you can take out the code.
+
+
 # Imports ======================================================================================================================
 import os
 import time
@@ -59,10 +64,12 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 # displayFormat (select ONE): liter, pint, gallon
 # beverage = beer
 
+
 # Read values from the flowMeterValues.txt file =================================================================================
-with open(FILENAME,'r') as f: # may need to change file string to include folder path
-	for line in f: 
-		if line[:6] == FLOW1
+ # may need to change file string to include folder path
+with open(FILENAME,'r') as f:
+	for line in f:
+		if line[:6] == FLOW1:
 			if flowMeter1.enabled == True:
 				flowMeter1.totalPour = line[6:]
 		if line[:6] == FLOW2:
@@ -306,35 +313,32 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 	pygame.display.flip()
 
     
-#what is this doing? =======================================================================================================
-# is it needed
-
-# -- FLEER -- Yes this is needed. This is how we update our flow values.
-
-# Beer, on Pin 23.
+# Flowmeter Updates ============================================================================================================
+# Beer 1, on Pin 23.
 def doAClick1(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   if flowMeter1.enabled == True:
     flowMeter1.update(currentTime)
-    saveValues(flowMeter1, flowMeter2, FlowMeter3)
+    saveValues(flowMeter1, flowMeter2, flowMeter3)
 
-# Beer, on Pin 24.
+# Beer 2, on Pin 24.
 def doAClick2(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   if flowMeter2.enabled == True:
     flowMeter2.update(currentTime)
-    saveValues(flowMeter1, flowMeter2, FlowMeter3)
+    saveValues(flowMeter1, flowMeter2, flowMeter3)
 
-# Beer, on Pin 25.
+# Beer 3, on Pin 25.
 def doAClick3(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   if flowMeter3.enabled == True:
     flowMeter3.update(currentTime)
-    saveValues(flowMeter1, flowMeter2, FlowMeter3)
+    saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
+
 
 # Erase and save new data =======================================================================================================
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
