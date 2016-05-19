@@ -72,11 +72,11 @@ class FlowMeter():
 	  
   def getFormattedTotalPour(self):
     if(self.displayFormat == 'liter'):
-      return str(18.927 - round(self.totalPour,3)) + ' L'
+      return str(18.927 - round(self.totalPour,3)) + ' / 18.927 L'
     elif(self.displayFormat == 'pint'):
-      return str(40 - round(self.totalPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+      return str(40 - round(self.totalPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' / 40 pints'
     else:
-      return str(5 - round(self.totalPour * FlowMeter.GAL_IN_A_LITER, 3)) + ' gal'
+      return str(5 - round(self.totalPour * FlowMeter.GAL_IN_A_LITER, 3)) + ' / 5.0 gal'
 	  
   def clear(self):
     self.thisPour = 0;

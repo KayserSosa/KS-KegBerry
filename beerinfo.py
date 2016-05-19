@@ -46,20 +46,20 @@ beer1glasspic = pint # select from Beer Glass Variables
 		
 
 # Beer 2 (Middle Tap) Variables ========================================================================================================
-beer2name = "Autumn Amber Ale" # notes about length here
-beer2style = "American Amber Ale" # notes about length here
-beer2OG = "OG: 1.048 SG" # notes about layout here
-beer2ibu = "IBU: 13.6" # notes about layout here
-beer2abv = "ABV: 4.8%/VOL" # notes about layout here
-beer2glass = "Pint Glass" # notes about layout here
+beer2name = "Beer2 Name" # notes about length here
+beer2style = "Beer2 Style" # notes about length here
+beer2OG = "OG: Beer2 SG" # notes about layout here
+beer2ibu = "IBU: Beer2" # notes about layout here
+beer2abv = "ABV: Beer2%/VOL" # notes about layout here
+beer2glass = "Beer2 Glass" # notes about layout here
 beer2glasspic = pint # select from Beer Glass Variables
 		
 
 # Beer 3 (Right Tap) Variables =========================================================================================================
-beer3name = "Autumn Amber Ale" # notes about length here
-beer3style = "Beer 3 Style" # notes about length here
-beer3OG = "Beer 3 OG" # notes about layout here
-beer3ibu = "Beer 3 IBU" # notes about layout here
-beer3abv = "Beer 3 ABV" # notes about layout here
-beer3glass = "Pint Glass" # notes about layout here
+beer3name = "Beer3 Name" # notes about length here
+beer3style = "Beer3 Style" # notes about length here
+beer3OG = "OG: Beer3 SG" # notes about layout here
+beer3ibu = "IBU: Beer3" # notes about layout here
+beer3abv = "ABV: Beer3%/VOL" # notes about layout here
+beer3glass = "Beer3 Glass" # notes about layout here
 beer3glasspic = pint # select from Beer Glass Variables

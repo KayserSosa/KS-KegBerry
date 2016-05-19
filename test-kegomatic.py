@@ -52,6 +52,16 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 TGREEN = (80, 200, 100) # PC Terminal Green
 
+# Text Color for each beer
+BEER1Text = TGREEN
+BEER2Text = WHITE
+BEER3Text = WHITE
+
+# Text Backgroud Color for each beer
+BEER1Bg = BLACK
+BEER2Bg = BLACK
+BEER3Bg = BLACK
+
 
 # Window Surface Setup =========================================================================================================
 screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32) # use fullscreen for pi only
@@ -120,101 +130,192 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 
 	# Clear the screen
 	screen.blit(background,(0,0))
-  	
 
-	# Draw Ammt Poured Total
-	text = screenfont.render("TOTAL", True, WHITE, BLACK)
-	textRect = text.get_rect()
-	screen.blit(text, (windowInfo.current_w - textRect.width - 40, 20))
-	if flowMeter1.enabled:
-		text = screenfont.render(flowMeter1.getFormattedTotalPour(), True, WHITE, BLACK)
-		textRect = text.get_rect()
-		screen.blit(text, (windowInfo.current_w - textRect.width - 40, 30 + LINEHEIGHT))
-	if flowMeter2.enabled:
-		text = screenfont.render(flowMeter2.getFormattedTotalPour(), True, WHITE, BLACK)
-		textRect = text.get_rect()
-		screen.blit(text, (windowInfo.current_w - textRect.width - 40, 30 + (2 * (LINEHEIGHT+5))))
-	#need to add flowMeter3
-  
-
+	#text edits
+	#https://pygame-zero.readthedocs.io/en/latest/ptext.html
+	
 	# Beer 1 Details - Left Tap ================================================================================================
 	
 	# Beer 1 Tap
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
-	rendered = screenfont.render("Left Tap", True, WHITE, BLACK)
+	rendered = screenfont.render("Left Tap", True, BEER1Text, BEER1Bg)
 	screen.blit(rendered, (0, 0))
 	
-	# Draw Ammt Poured Total
-	text = screenfont.render("TOTAL", True, WHITE, BLACK)
-	textRect = text.get_rect()
-	screen.blit(text, (windowInfo.current_w - textRect.width - 40, 20))
+	# Beer 1 Poured
 	if flowMeter1.enabled:
-		text = screenfont.render(flowMeter1.getFormattedTotalPour(), True, WHITE, BLACK)
+		text = screenfont.render(flowMeter1.getFormattedTotalPour(), True, BEER1Text, BEER1Bg)
 		textRect = text.get_rect()
-		screen.blit(text, (0, 70))
-	
-	
-	# amount left in keg out of 5gal
-	#screenfont = pygame.font.SysFont(None, 50)
-	#rendered = screenfont.render("3.75 / 5.00 gal",True, WHITE, BLACK)
-	#screen.blit(rendered, (0, 70))
-		
+		screen.blit(text, (0, 60))
+				
 	# Beer 1 Name
 	screenfont = pygame.font.SysFont(None, 40)
-	screenfont.set_bold(True)
-	rendered = screenfont.render(beer1name, True, WHITE, BLACK)
-	screen.blit(rendered, (0, 125))
+	rendered = screenfont.render(beer1name, True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 120))
+		
+	# Beer 1 Separator Line
+	screenfont = pygame.font.SysFont(None, 20)
+	rendered = screenfont.render('================================', True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 160))
 		
 	# Beer 1 Style
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1style, True, WHITE, BLACK)
-	screen.blit(rendered, (0, 155))
+	rendered = screenfont.render(beer1style, True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 185))
 	
 	# Beer 1 Original Gravity (OG)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1OG, True, WHITE, BLACK)
-	screen.blit(rendered, (0, 185))
+	rendered = screenfont.render(beer1OG, True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 220))
 	
 	# Beer 1 International Bittering Units (IBU)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1ibu, True, WHITE, BLACK)
-	screen.blit(rendered, (0, 210))
+	rendered = screenfont.render(beer1ibu, True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 255))
 	
 	# Beer 1 Alcohol / Volume (ABV)
-	screenfont = pygame.font.SysFont(None, 35) # need to determine font size
-	rendered = screenfont.render(beer1abv, True, WHITE, BLACK) # need to determine font color
-	screen.blit(rendered, (0, 235)) # need to determine where on screen
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer1abv, True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 290))
 	
 	# Beer 1 Glass
-	screenfont = pygame.font.SysFont(None, 35) # need to determine font size
-	rendered = screenfont.render(beer1glass, True, WHITE, BLACK) # need to determine font color
-	screen.blit(rendered, (0, 260)) # need to determine where on screen		
-	screen.blit(beer1glasspic, (0, 285))
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer1glass, True, BEER1Text, BEER1Bg)
+	screen.blit(rendered, (0, 325))
+	screen.blit(beer1glasspic, (0, 360))
 
 	
 	# Beer 2 Details - Middle Tap ==============================================================================================
 	
+	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
+	# justify center
+	
 	# Beer 2 Tap
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
-	rendered = screenfont.render("Middle Tap", True, WHITE, BLACK)
+	rendered = screenfont.render("Middle Tap", True, BEER2Text, BEER2Bg)
 	screen.blit(rendered, (266, 0))
 
+	# Beer 2 Poured
+	if flowMeter2.enabled:
+		text = screenfont.render(flowMeter2.getFormattedTotalPour(), True, BEER2Text, BEER2Bg)
+		textRect = text.get_rect()
+		screen.blit(text, (266, 60))
+				
+	# Beer 2 Name
+	screenfont = pygame.font.SysFont(None, 40)
+	rendered = screenfont.render(beer2name, True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 120))
+		
+	# Beer 2 Separator Line
+	screenfont = pygame.font.SysFont(None, 20)
+	rendered = screenfont.render('================================', True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 160))
+		
+	# Beer 2 Style
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer2style, True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 185))
+	
+	# Beer 2 Original Gravity (OG)
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer2OG, True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 220))
+	
+	# Beer 2 International Bittering Units (IBU)
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer2ibu, True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 255))
+	
+	# Beer 2 Alcohol / Volume (ABV)
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer2abv, True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 290))
+	
+	# Beer 2 Glass
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer2glass, True, BEER2Text, BEER2Bg)
+	screen.blit(rendered, (266, 325))
+	screen.blit(beer2glasspic, (266, 360))
 	
 	# Beer 3 Details - Right Tap ===============================================================================================
+	
+	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
+	#justify right
 	
 	# Beer 3 Tap
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
-	rendered = screenfont.render("Right Tap", True, WHITE, BLACK)
+	rendered = screenfont.render("Right Tap", True, BEER3Text, BEER3Bg)
 	screen.blit(rendered, (532, 0))
+
+	# Beer 3 Poured
+	if flowMeter3.enabled:
+		text = screenfont.render(flowMeter3.getFormattedTotalPour(), True, BEER3Text, BEER3Bg)
+		textRect = text.get_rect()
+		screen.blit(text, (532, 60))
+				
+	# Beer 3 Name
+	screenfont = pygame.font.SysFont(None, 40)
+	rendered = screenfont.render(beer3name, True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 120))
+		
+	# Beer 3 Separator Line
+	screenfont = pygame.font.SysFont(None, 20)
+	rendered = screenfont.render('================================', True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 160))
+		
+	# Beer 3 Style
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer3style, True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 185))
+	
+	# Beer 3 Original Gravity (OG)
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer3OG, True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 220))
+	
+	# Beer 3 International Bittering Units (IBU)
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer3ibu, True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 255))
+	
+	# Beer 3 Alcohol / Volume (ABV)
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer3abv, True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 290))
+	
+	# Beer 3 Glass
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(beer3glass, True, BEER3Text, BEER3Bg)
+	screen.blit(rendered, (532, 325))
+	screen.blit(beer2glasspic, (532, 360))
+
+	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
+	#justiry right testing
+	
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render("right justified?", True, BEER3Text, BEER3Bg)
+	newrendered = rendered.get_rect(right=(532, 600)
+	#newrendered.right = 500
+	screen.blit(rendered, newrendered)
 	
 	
-	# Beer 3 Details - Right Tap ===============================================================================================
-	#kegerator temp, current date/time
+	
+	
+	
 
-
+	
+	# Kegerator Temp ===========================================================================================================
+	# right justified temp
+	
+	# Date / Time ==============================================================================================================
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render(time.strftime("%I:%M:%S %p - %Y/%m/%d"), True, WHITE, BLACK)
+	screen.blit(rendered, (0, 575))
+	# may be wrong due to internet blocking, unblock and try
+	
+	
 	# Display everything
 	pygame.display.flip()
 
