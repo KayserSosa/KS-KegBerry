@@ -316,24 +316,24 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 # Flowmeter Updates ============================================================================================================
 # Beer 1, on Pin 23.
 def doAClick1(channel):
-  currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
-  if flowMeter1.enabled == True:
-    flowMeter1.update(currentTime)
-    saveValues(flowMeter1, flowMeter2, flowMeter3)
+	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
+	if flowMeter1.enabled == True:
+		flowMeter1.update(currentTime)
+		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Beer 2, on Pin 24.
 def doAClick2(channel):
-  currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
-  if flowMeter2.enabled == True:
-    flowMeter2.update(currentTime)
-    saveValues(flowMeter1, flowMeter2, flowMeter3)
+	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
+	if flowMeter2.enabled == True:
+		flowMeter2.update(currentTime)
+		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 # Beer 3, on Pin 25.
 def doAClick3(channel):
-  currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
-  if flowMeter3.enabled == True:
-    flowMeter3.update(currentTime)
-    saveValues(flowMeter1, flowMeter2, flowMeter3)
+	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
+	if flowMeter3.enabled == True:
+		flowMeter3.update(currentTime)
+		saveValues(flowMeter1, flowMeter2, flowMeter3)
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
