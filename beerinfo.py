@@ -12,30 +12,27 @@ from pygame.locals import *
 
 
 # Beer Glass Image Variables ===================================================================================================
-pint = pygame.image.load('pint-glass.jpg') # update image
+pint = pygame.image.load('pint.jpg')
 pint = pygame.transform.scale(pint,(150,150)) # update to correct size
 	
-mug = pygame.image.load('by-the-glass-mini-infographic.png') # update image
+mug = pygame.image.load('mug.jpg')
 mug = pygame.transform.scale(mug,(100,100)) # update to correct size
 	
-pilsner = pygame.image.load('by-the-glass-mini-infographic.png') # update image
+pilsner = pygame.image.load('pilsner.jpg')
 pilsner = pygame.transform.scale(pilsner,(100,100)) # update to correct size
 	
-weizen = pygame.image.load('by-the-glass-mini-infographic.png') # update image
+weizen = pygame.image.load('weizen.jpg')
 weizen = pygame.transform.scale(weizen,(100,100)) # update to correct size
 	
-flute = pygame.image.load('by-the-glass-mini-infographic.png') # update image
-flute = pygame.transform.scale(flute,(100,100)) # update to correct size
-	
-tulip = pygame.image.load('by-the-glass-mini-infographic.png') # update image
+tulip = pygame.image.load('tulip.jpg')
 tulip = pygame.transform.scale(tulip,(100,100)) # update to correct size
 	
-snifter = pygame.image.load('by-the-glass-mini-infographic.png') # update image
+snifter = pygame.image.load('snifter.jpg')
 snifter = pygame.transform.scale(snifter,(100,100)) # update to correct size
 	
-goblet = pygame.image.load('by-the-glass-mini-infographic.png') # update image
+goblet = pygame.image.load('goblet.jpg')
 goblet = pygame.transform.scale(goblet,(100,100)) # update to correct size
-		
+
 	
 # Beer 1 (Left Tap ) Variables =========================================================================================================
 beer1name = "Autumn Amber Ale" # notes about length here
@@ -64,4 +61,4 @@ beer3OG = "OG: Beer3 SG" # notes about layout here
 beer3ibu = "IBU: Beer3" # notes about layout here
 beer3abv = "ABV: Beer3%/VOL" # notes about layout here
 beer3glass = "Beer3 Glass" # notes about layout here
-beer3glasspic = pint # select from Beer Glass Variables
+beer3glasspic = mug # select from Beer Glass Variables
