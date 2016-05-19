@@ -30,6 +30,12 @@ GPIO.setup(24,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Middle Tap, Beer 2
 GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 # Flow Meter Wiring: Red = 5-24VDC, Black = Ground, Yellow = GPIO Pin
 
+# FILE ACCESS CONSTANTS ========================================================================================================
+FILENAME = 'flowMeterValues.txt'
+FLOW1 = 'FLOW1: '
+FLOW2 = 'FLOW2: '
+FLOW3 = 'FLOW3: '
+
 
 # Initialize Pygame ============================================================================================================
 pygame.init()
@@ -52,6 +58,20 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 # Inputs - FlowMeter('displayFormat', ['beverage'])
 # displayFormat (select ONE): liter, pint, gallon
 # beverage = beer
+
+# Read values from the flowMeterValues.txt file =================================================================================
+with open(FILENAME,'r') as f: # may need to change file string to include folder path
+	for line in f: 
+		if line[:6] == FLOW1
+			if flowMeter1.enabled == True:
+				flowMeter1.totalPour = line[6:]
+		if line[:6] == FLOW2:
+			if flowMeter2.enabled == True:
+				flowMeter2.totalPour = line[6:]
+		if line[:6] == FLOW3:
+			if flowMeter3.enabled == True:
+				flowMeter3.totalPour = line[6:]
+f.closed
 
 
 # Colors Setup =================================================================================================================
@@ -289,27 +309,43 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 #what is this doing? =======================================================================================================
 # is it needed
 
+# -- FLEER -- Yes this is needed. This is how we update our flow values.
+
 # Beer, on Pin 23.
 def doAClick1(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   if flowMeter1.enabled == True:
     flowMeter1.update(currentTime)
+    saveValues(flowMeter1, flowMeter2, FlowMeter3)
 
 # Beer, on Pin 24.
 def doAClick2(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   if flowMeter2.enabled == True:
     flowMeter2.update(currentTime)
+    saveValues(flowMeter1, flowMeter2, FlowMeter3)
 
 # Beer, on Pin 25.
 def doAClick3(channel):
   currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   if flowMeter3.enabled == True:
     flowMeter3.update(currentTime)
+    saveValues(flowMeter1, flowMeter2, FlowMeter3)
 
 GPIO.add_event_detect(23, GPIO.RISING, callback=doAClick1, bouncetime=20) # Beer 1, on Pin 23
 GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer 2, on Pin 24
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
+
+# Erase and save new data =======================================================================================================
+def saveValues(flowMeter1, flowMeter2, flowMeter3):
+	f = open(FILENAME, 'w')
+	if flowMeter1.enabled == True:
+		f.write(FLOW1 + flowMeter1.totalPour)
+	if flowMeter2.enabled == True:
+		f.write(FLOW2 + flowMeter2.totalPour)
+	if flowMeter3.enabled == True:
+		f.write(FLOW3 + flowMeter3.totalPour)
+	f.close()
 
 
 # Main Never Ending Loop =======================================================================================================
