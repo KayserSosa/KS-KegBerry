@@ -118,10 +118,10 @@ background = pygame.image.load('Beer-Background.jpg')
 
 # Rendering ====================================================================================================================
 def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont, 
-	pint, mug, pilsner, weizen, flute, tulip, snifter, goblet,
-	beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glass, beer1glasspic,
-	beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glass, beer2glasspic,
-	beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glass, beer3glasspic):
+	pint, mug, pilsner, weizen, tulip, snifter, goblet,
+	beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
+	beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
+	beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic):
 
 	# Clear the screen
 	screen.blit(background,(0,0))
@@ -174,10 +174,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 	screen.blit(rendered, (0, 290))
 	
 	# Beer 1 Glass
-	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1glass, True, BEER1Text, BEER1Bg)
-	screen.blit(rendered, (0, 325))
-	screen.blit(beer1glasspic, (0, 360))
+	screen.blit(beer1glasspic, (0, 325))
 
 	
 	# Beer 2 Details - Middle Tap ==============================================================================================
@@ -228,10 +225,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 	screen.blit(rendered, (266, 290))
 	
 	# Beer 2 Glass
-	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer2glass, True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 325))
-	screen.blit(beer2glasspic, (266, 360))
+	screen.blit(beer2glasspic, (266, 325))
 	
 	# Beer 3 Details - Right Tap ===============================================================================================
 	
@@ -281,10 +275,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont,
 	screen.blit(rendered, (532, 290))
 	
 	# Beer 3 Glass
-	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer3glass, True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 325))
-	screen.blit(beer2glasspic, (532, 360))
+	screen.blit(beer3glasspic, (532, 325))
 
 	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
 	#justiry right testing
@@ -388,7 +379,7 @@ while True:
 
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont, 
-		pint, mug, pilsner, weizen, flute, tulip, snifter, goblet,
-		beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glass, beer1glasspic,
-		beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glass, beer2glasspic,
-		beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glass, beer3glasspic)
+		pint, mug, pilsner, weizen, tulip, snifter, goblet,
+		beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
+		beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
+		beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic)
