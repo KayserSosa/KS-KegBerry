@@ -36,10 +36,6 @@ GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 # Flow Meter Wiring: Red = 5-24VDC, Black = Ground, Yellow = GPIO Pin
 
 
-# File Access Constrants =======================================================================================================
-FILENAME = 'flowMeterValues.txt'
-
-
 # Initialize Pygame ============================================================================================================
 pygame.init()
 
@@ -48,6 +44,10 @@ pygame.init()
 VIEW_WIDTH = 800 # my numbers 800, original number 1024
 VIEW_HEIGHT = 600 # my numbers 600, original number 576
 pygame.display.set_caption('KayserSosa Kegberry')
+
+
+# File Access Constrants =======================================================================================================
+FILENAME = 'flowMeterValues.txt'
 
 
 # Hide the Mouse ===============================================================================================================
@@ -96,9 +96,6 @@ screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32)
 windowInfo = pygame.display.Info()
 
 #screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT)) # use for windows testing only
-FONTSIZE = 48 # may not be needed
-LINEHEIGHT = 28 # may not be needed
-screenfont = pygame.font.SysFont(None, FONTSIZE) # may not be needed
 
 
 # Backgrounds Setup ============================================================================================================
@@ -108,7 +105,7 @@ background = pygame.image.load('Beer-Background.jpg')
 
 
 # Rendering ====================================================================================================================
-def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont, 
+def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 	pint, mug, pilsner, weizen, tulip, snifter, goblet,
 	beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
 	beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
@@ -369,7 +366,7 @@ while True:
 		flowMeter3.thisPour = 0.0
 
 	# Update the screen
-	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont, 
+	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 		pint, mug, pilsner, weizen, tulip, snifter, goblet,
 		beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
 		beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
