@@ -38,9 +38,6 @@ GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 
 # File Access Constrants =======================================================================================================
 FILENAME = 'flowMeterValues.txt'
-FLOW1 = 'FLOW1: '
-FLOW2 = 'FLOW2: '
-FLOW3 = 'FLOW3: '
 
 
 # Initialize Pygame ============================================================================================================
@@ -62,25 +59,16 @@ flowMeter1 = FlowMeter('gallon', ["beer"]) # Left Tap, Beer 1
 flowMeter2 = FlowMeter('gallon', ["beer"]) # Middle Tap, Beer 2
 flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 # Inputs - FlowMeter('displayFormat', ['beverage'])
-# displayFormat (select ONE): liter, pint, gallon
-# beverage = beer
+					# displayFormat (select ONE): liter, pint, gallon
+					# beverage = beer
 
 
 # Read values from the flowMeterValues.txt file =================================================================================
-
-#http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python
-
-with open(FILENAME,'r') as f: # may need to change file string to include folder path, file will stay in same dir
-	for line in f:
-		if line[:6] == FLOW1:
-			if flowMeter1.enabled == True:
-				flowMeter1.totalPour = line[6:]
-		if line[:6] == FLOW2:
-			if flowMeter2.enabled == True:
-				flowMeter2.totalPour = line[6:]
-		if line[:6] == FLOW3:
-			if flowMeter3.enabled == True:
-				flowMeter3.totalPour = line[6:]
+with open(FILENAME,'r') as f:
+	lines = f.readlines()
+	flowMeter1.totalPour = float(lines[0])
+	flowMeter2.totalPour = float(lines[1])
+	flowMeter3.totalPour = float(lines[2])
 f.closed
 
 
@@ -334,22 +322,19 @@ GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
 
-# Erase & Save Text File Data ==================================================================================================
+# Erase & Save New Data =======================================================================================================
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f = open(FILENAME, 'w')
 	if flowMeter1.enabled == True:
-		f.write(FLOW1 + flowMeter1.totalPour)
+		f.write(flowMeter1.totalPour + "\n")
 	if flowMeter2.enabled == True:
-		f.write(FLOW2 + flowMeter2.totalPour)
+		f.write(flowMeter2.totalPour + "\n")
 	if flowMeter3.enabled == True:
-		f.write(FLOW3 + flowMeter3.totalPour)
+		f.write(flowMeter3.totalPour + "\n")
 	f.close()
 
 
 # Main Never Ending Loop =======================================================================================================
-
-# are all the elif events needed?
-
 while True:
 	# Handle keyboard events
 	for event in pygame.event.get():
@@ -372,8 +357,7 @@ while True:
   
 	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
   
-  
-	# is this section still needed? ====================================================================
+	# is this needed? ====================================================================
 	# Reset flowmeters after each pour (2 secs of inactivity)
 	if (flowMeter1.thisPour <= 0.23 and currentTime - flowMeter1.lastClick > 2000):
 		flowMeter1.thisPour = 0.0
@@ -383,8 +367,6 @@ while True:
 		
 	if (flowMeter3.thisPour <= 0.23 and currentTime - flowMeter3.lastClick > 2000):
 		flowMeter3.thisPour = 0.0
-
-
 
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, screenfont, 
