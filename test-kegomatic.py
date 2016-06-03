@@ -4,16 +4,10 @@
 # created by, etc...
 
 
-# instead of tweet, email or post value incase of power outage or reboot and a way to add to total
-	# or find a way to keep values if power lost, store current values to another file, check file before reloading
-# add temp, date, time to bottom
+# store current values to another file, check file before reloading
+# add temp to bottom left
 # justify text, left, right, center
 #maybe rotating backgrounds? if possible
-
-
-#also, don't want to make another pull request, but test-kegomatic.py, lines 374 - 384
-#you ask if they're needed
-#not necessarily. That's resetting the "current pour" values. If you're not gonna use it, you can take out the code.
 
 
 # Imports ======================================================================================================================
@@ -40,12 +34,6 @@ GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 pygame.init()
 
 
-# Display Window Setup =========================================================================================================
-VIEW_WIDTH = 800 # my numbers 800, original number 1024
-VIEW_HEIGHT = 600 # my numbers 600, original number 576
-pygame.display.set_caption('KayserSosa Kegberry')
-
-
 # File Access Constrants =======================================================================================================
 FILENAME = 'flowMeterValues.txt'
 
@@ -64,12 +52,17 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 
 
 # Read values from the flowMeterValues.txt file =================================================================================
-with open(FILENAME,'r') as f:
-	lines = f.readlines()
-	flowMeter1.totalPour = float(lines[0])
-	flowMeter2.totalPour = float(lines[1])
-	flowMeter3.totalPour = float(lines[2])
-f.closed
+
+# if all are active, original value goes to 3.679
+# if all are editted out, original value goes to 5.0
+# thinking that flowmeter.py will need to be editted to fix this
+
+#with open(FILENAME,'r') as f:
+#	lines = f.readlines()
+#	flowMeter1.totalPour = float(lines[0])
+#	flowMeter2.totalPour = float(lines[1])
+#	flowMeter3.totalPour = float(lines[2])
+#f.closed
 
 
 # Colors Setup =================================================================================================================
@@ -92,10 +85,16 @@ BEER3Bg = BLACK
 
 
 # Window Surface Setup =========================================================================================================
+VIEW_WIDTH = 800 # my numbers 800, original number 1024
+VIEW_HEIGHT = 600 # my numbers 600, original number 576
+pygame.display.set_caption('KayserSosa Kegberry')
+
 screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32)
 windowInfo = pygame.display.Info()
 
 #screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT)) # use for windows testing only
+
+
 
 
 # Backgrounds Setup ============================================================================================================
@@ -223,8 +222,14 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	# Beer 3 Tap
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
+	
+	words = "Right Tap"
+	strLength = len(words)
+	newVIEW_WIDTH = 532 + 60 + strLength
+	
 	rendered = screenfont.render("Right Tap", True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 0))
+	screen.blit(rendered, (newVIEW_WIDTH, 0))
+	#screen.blit(rendered, (532, 0))
 
 	# Beer 3 Poured
 	if flowMeter3.enabled:

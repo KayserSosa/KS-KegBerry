@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+# what can be removed from here?
+# dont think beverage is needed, have to remove it from main as well
+# getFormattedTotalPour - originally counted up, instead of down
+
+
 import time
 import random
 
