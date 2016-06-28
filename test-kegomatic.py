@@ -2,6 +2,7 @@
 
 # intro notes here
 # created by, etc...
+#help by fleer
 
 
 # store current values to another file, check file before reloading
@@ -57,12 +58,12 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 # if all are editted out, original value goes to 5.0
 # thinking that flowmeter.py will need to be editted to fix this
 
-#with open(FILENAME,'r') as f:
-#	lines = f.readlines()
-#	flowMeter1.totalPour = float(lines[0])
-#	flowMeter2.totalPour = float(lines[1])
-#	flowMeter3.totalPour = float(lines[2])
-#f.closed
+with open(FILENAME,'r') as f:
+	lines = f.readlines()
+	flowMeter1.totalPour = float(lines[0])
+	flowMeter2.totalPour = float(lines[1])
+	flowMeter3.totalPour = float(lines[2])
+f.closed
 
 
 # Colors Setup =================================================================================================================
@@ -328,11 +329,11 @@ GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f = open(FILENAME, 'w')
 	if flowMeter1.enabled == True:
-		f.write(flowMeter1.totalPour + "\n")
+		f.write(str(flowMeter1.totalPour + "\n"))
 	if flowMeter2.enabled == True:
-		f.write(flowMeter2.totalPour + "\n")
+		f.write(str(flowMeter2.totalPour + "\n"))
 	if flowMeter3.enabled == True:
-		f.write(flowMeter3.totalPour + "\n")
+		f.write(str(flowMeter3.totalPour + "\n"))
 	f.close()
 
 
