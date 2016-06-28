@@ -96,8 +96,6 @@ windowInfo = pygame.display.Info()
 #screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT)) # use for windows testing only
 
 
-
-
 # Backgrounds Setup ============================================================================================================
 #background = pygame.Surface(screen.get_size())
 #background = background.convert()

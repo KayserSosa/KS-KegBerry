@@ -53,30 +53,30 @@ class FlowMeter():
     # Update the last click
     self.lastClick = currentTime
 
-  def getBeverage(self):
-    return str(random.choice(self.beverage))
+ # def getBeverage(self):
+ #   return str(random.choice(self.beverage))
 
-  def getFormattedClickDelta(self):
-     return str(self.clickDelta) + ' ms'
+ # def getFormattedClickDelta(self):
+ #    return str(self.clickDelta) + ' ms'
   
-  def getFormattedHertz(self):
-     return str(round(self.hertz,3)) + ' Hz'
+ # def getFormattedHertz(self):
+ #    return str(round(self.hertz,3)) + ' Hz'
   
-  def getFormattedFlow(self):
-    if(self.displayFormat == 'liter'):
-      return str(round(self.flow,3)) + ' L/s'
-    elif(self.displayFormat == 'pint'):
-	  return str(round(self.flow * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints/s'
-    else:
-	  return str(round(self.flow * FlowMeter.GAL_IN_A_LITER, 3)) + ' gal/s'
+ # def getFormattedFlow(self):
+ #   if(self.displayFormat == 'liter'):
+ #     return str(round(self.flow,3)) + ' L/s'
+ #   elif(self.displayFormat == 'pint'):
+ #	  return str(round(self.flow * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints/s'
+ #   else:
+ #	  return str(round(self.flow * FlowMeter.GAL_IN_A_LITER, 3)) + ' gal/s'
   
-  def getFormattedThisPour(self):
-    if(self.displayFormat == 'liter'):
-      return str(round(self.thisPour,3)) + ' L'
-    elif(self.displayFormat == 'pint'):
-      return str(round(self.thisPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
-    else:
-      return str(round(self.thisPour * FlowMeter.GAL_IN_A_LITER, 3)) + ' gal'
+ # def getFormattedThisPour(self):
+ #   if(self.displayFormat == 'liter'):
+ #     return str(round(self.thisPour,3)) + ' L'
+ #   elif(self.displayFormat == 'pint'):
+ #     return str(round(self.thisPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' pints'
+ #   else:
+ #     return str(round(self.thisPour * FlowMeter.GAL_IN_A_LITER, 3)) + ' gal'
 	  
   def getFormattedTotalPour(self):
     if(self.displayFormat == 'liter'):
