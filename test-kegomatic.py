@@ -2,8 +2,9 @@
 
 # intro notes here
 # created by, etc...
-#help by fleer
+#help by fleer, pj
 
+# convert liter to gal and back because didnt want to fig out flowmeter.py
 
 # store current values to another file, check file before reloading
 # add temp to bottom left
@@ -35,7 +36,7 @@ GPIO.setup(25,GPIO.IN, pull_up_down=GPIO.PUD_UP) # Right Tap, Beer 3
 pygame.init()
 
 
-# File Access Constrants =======================================================================================================
+# Read/Write File ==============================================================================================================
 FILENAME = 'flowMeterValues.txt'
 
 
@@ -52,17 +53,12 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 					# beverage = beer
 
 
-# Read values from the flowMeterValues.txt file =================================================================================
-
-# if all are active, original value goes to 3.679
-# if all are editted out, original value goes to 5.0
-# thinking that flowmeter.py will need to be editted to fix this
-
+# Read Saved Values from flowMeterValues.txt ++=================================================================================
 with open(FILENAME,'r') as f:
 	lines = f.readlines()
-	flowMeter1.totalPour = float(lines[0])
-	flowMeter2.totalPour = float(lines[1])
-	flowMeter3.totalPour = float(lines[2])
+	flowMeter1.totalPour = float(lines[0]) * 3.7854 # converting gal to liters
+	flowMeter2.totalPour = float(lines[1]) * 3.7854 # converting gal to liters
+	flowMeter3.totalPour = float(lines[2]) * 3.7854 # converting gal to liters
 f.closed
 
 
@@ -89,16 +85,11 @@ BEER3Bg = BLACK
 VIEW_WIDTH = 800 # my numbers 800, original number 1024
 VIEW_HEIGHT = 600 # my numbers 600, original number 576
 pygame.display.set_caption('KayserSosa Kegberry')
-
 screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT), FULLSCREEN, 32)
 windowInfo = pygame.display.Info()
 
-#screen = pygame.display.set_mode((VIEW_WIDTH,VIEW_HEIGHT)) # use for windows testing only
-
 
 # Backgrounds Setup ============================================================================================================
-#background = pygame.Surface(screen.get_size())
-#background = background.convert()
 background = pygame.image.load('Beer-Background.jpg')
 
 
@@ -112,7 +103,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	# Clear the screen
 	screen.blit(background,(0,0))
 
-	#text edits
+	#text formatting
 	#https://pygame-zero.readthedocs.io/en/latest/ptext.html
 	
 	# Beer 1 Details - Left Tap ================================================================================================
@@ -125,7 +116,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 1 Poured
 	if flowMeter1.enabled:
-		text = screenfont.render(flowMeter1.getFormattedTotalPour(), True, BEER1Text, BEER1Bg)
+		text = screenfont.render(flowMeter1.getFormattedTotalPour() + " / 5.0 gal", True, BEER1Text, BEER1Bg)
 		textRect = text.get_rect()
 		screen.blit(text, (0, 60))
 				
@@ -176,7 +167,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 
 	# Beer 2 Poured
 	if flowMeter2.enabled:
-		text = screenfont.render(flowMeter2.getFormattedTotalPour(), True, BEER2Text, BEER2Bg)
+		text = screenfont.render(flowMeter2.getFormattedTotalPour() + " / 5.0 gal", True, BEER2Text, BEER2Bg)
 		textRect = text.get_rect()
 		screen.blit(text, (266, 60))
 				
@@ -232,7 +223,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 
 	# Beer 3 Poured
 	if flowMeter3.enabled:
-		text = screenfont.render(flowMeter3.getFormattedTotalPour(), True, BEER3Text, BEER3Bg)
+		text = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, BEER3Text, BEER3Bg)
 		textRect = text.get_rect()
 		screen.blit(text, (532, 60))
 				
@@ -327,11 +318,11 @@ GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f = open(FILENAME, 'w')
 	if flowMeter1.enabled == True:
-		f.write(str(flowMeter1.totalPour) + "\n")
+		f.write(flowMeter1.getFormattedTotalPour() + "\n")
 	if flowMeter2.enabled == True:
-		f.write(str(flowMeter2.totalPour) + "\n")
+		f.write(flowMeter2.getFormattedTotalPour() + "\n")
 	if flowMeter3.enabled == True:
-		f.write(str(flowMeter3.totalPour) + "\n")
+		f.write(flowMeter3.getFormattedTotalPour() + "\n")
 	f.close()
 
 
@@ -360,14 +351,14 @@ while True:
   
 	# is this needed? ====================================================================
 	# Reset flowmeters after each pour (2 secs of inactivity)
-	if (flowMeter1.thisPour <= 0.23 and currentTime - flowMeter1.lastClick > 2000):
-		flowMeter1.thisPour = 0.0
+#	if (flowMeter1.thisPour <= 0.23 and currentTime - flowMeter1.lastClick > 2000):
+#		flowMeter1.thisPour = 0.0
     
-	if (flowMeter2.thisPour <= 0.23 and currentTime - flowMeter2.lastClick > 2000):
-		flowMeter2.thisPour = 0.0
+#	if (flowMeter2.thisPour <= 0.23 and currentTime - flowMeter2.lastClick > 2000):
+#		flowMeter2.thisPour = 0.0
 		
-	if (flowMeter3.thisPour <= 0.23 and currentTime - flowMeter3.lastClick > 2000):
-		flowMeter3.thisPour = 0.0
+#	if (flowMeter3.thisPour <= 0.23 and currentTime - flowMeter3.lastClick > 2000):
+#		flowMeter3.thisPour = 0.0
 
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
