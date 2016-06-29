@@ -85,7 +85,7 @@ class FlowMeter():
 #      return str(40 - round(self.totalPour * FlowMeter.PINTS_IN_A_LITER, 3)) + ' / 40 pints'
 #    else:
       #return str(10 - round(self.totalPour * FlowMeter.GAL_IN_A_LITER, 3)) + ' / 5.0 gal'   #old
-	  return str(round(self.totalPour * FlowMeter.GAL_IN_A_LITER, 3))
+	  return str(round(self.totalPour * FlowMeter.GAL_IN_A_LITER, 2))
 	  
   def clear(self):
     #self.thisPour = 0;

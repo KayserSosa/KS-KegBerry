@@ -54,11 +54,12 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 
 
 # Read Saved Values from flowMeterValues.txt ++=================================================================================
+# The text file is in gallons and totalPour is in liters to a each needs to be converted from gal to L
 with open(FILENAME,'r') as f:
 	lines = f.readlines()
-	flowMeter1.totalPour = float(lines[0]) * 3.7854 # converting gal to liters
-	flowMeter2.totalPour = float(lines[1]) * 3.7854 # converting gal to liters
-	flowMeter3.totalPour = float(lines[2]) * 3.7854 # converting gal to liters
+	flowMeter1.totalPour = float(lines[0]) * 3.7854
+	flowMeter2.totalPour = float(lines[1]) * 3.7854
+	flowMeter3.totalPour = float(lines[2]) * 3.7854
 f.closed
 
 
@@ -116,9 +117,9 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 1 Poured
 	if flowMeter1.enabled:
-		text = screenfont.render(flowMeter1.getFormattedTotalPour() + " / 5.0 gal", True, BEER1Text, BEER1Bg)
-		textRect = text.get_rect()
-		screen.blit(text, (0, 60))
+		rendered = screenfont.render(flowMeter1.getFormattedTotalPour() + " / 5.0 gal", True, BEER1Text, BEER1Bg)
+		textRect = rendered.get_rect()
+		screen.blit(rendered, (0, 60))
 				
 	# Beer 1 Name
 	screenfont = pygame.font.SysFont(None, 40)
@@ -156,8 +157,9 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 2 Details - Middle Tap ==============================================================================================
 	
-	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
-	# justify center
+	#https://stackoverflow.com/questions/32673965/pygame-blitting-center
+	#centering text
+	
 	
 	# Beer 2 Tap
 	screenfont = pygame.font.SysFont(None, 60)
@@ -167,9 +169,9 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 
 	# Beer 2 Poured
 	if flowMeter2.enabled:
-		text = screenfont.render(flowMeter2.getFormattedTotalPour() + " / 5.0 gal", True, BEER2Text, BEER2Bg)
-		textRect = text.get_rect()
-		screen.blit(text, (266, 60))
+		rendered = screenfont.render(flowMeter2.getFormattedTotalPour() + " / 5.0 gal", True, BEER2Text, BEER2Bg)
+		textRect = rendered.get_rect()
+		screen.blit(rendered, (266, 60))
 				
 	# Beer 2 Name
 	screenfont = pygame.font.SysFont(None, 40)
@@ -206,26 +208,25 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 3 Details - Right Tap ===============================================================================================
 	
-	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
-	#justify right
-	
 	# Beer 3 Tap
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
-	
-	words = "Right Tap"
-	strLength = len(words)
-	newVIEW_WIDTH = 532 + 60 + strLength
-	
 	rendered = screenfont.render("Right Tap", True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (newVIEW_WIDTH, 0))
-	#screen.blit(rendered, (532, 0))
-
+	textRect = rendered.get_rect()
+	textRect.right = 800
+	screen.blit(rendered, textRect)
+	
+	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
+	#justify right
+	# how to move right aligned items down on screen
+	
 	# Beer 3 Poured
 	if flowMeter3.enabled:
-		text = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, BEER3Text, BEER3Bg)
-		textRect = text.get_rect()
-		screen.blit(text, (532, 60))
+		rendered = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, BEER3Text, BEER3Bg)
+		textRect = rendered.get_rect()
+		textRect.right = 800
+		#screen.blit(rendered, textRect)
+		screen.blit(rendered, (532, 60))
 				
 	# Beer 3 Name
 	screenfont = pygame.font.SysFont(None, 40)
@@ -274,15 +275,17 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	#newrendered.right = 500
 	#screen.blit(rendered, newrendered)
 	
-	# Kegerator Temp ===========================================================================================================
-	# right justified temp
+	# Kegerator Temps ===========================================================================================================
+	# kegerator temp - tbd
+	# tower temp - tbd
 	
 	# Date / Time ==============================================================================================================
+	# Date & Time required internet access to initially set
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(time.strftime("%I:%M:%S %p - %Y/%m/%d"), True, WHITE, BLACK)
 	screen.blit(rendered, (0, 575))
-	# time may be wrong due to internet blocking, unblock and try
 	
+		
 	# Display everything
 	pygame.display.flip()
 
