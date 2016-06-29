@@ -327,11 +327,11 @@ GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f = open(FILENAME, 'w')
 	if flowMeter1.enabled == True:
-		f.write(str(flowMeter1.totalPour + "\n"))
+		f.write(str(flowMeter1.totalPour) + "\n")
 	if flowMeter2.enabled == True:
-		f.write(str(flowMeter2.totalPour + "\n"))
+		f.write(str(flowMeter2.totalPour) + "\n")
 	if flowMeter3.enabled == True:
-		f.write(str(flowMeter3.totalPour + "\n"))
+		f.write(str(flowMeter3.totalPour) + "\n")
 	f.close()
 
 
