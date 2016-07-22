@@ -283,11 +283,9 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Kegerator Temps ===========================================================================================================
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render("Kegerator: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
+	rendered = screenfont.render("Kegerator Temp: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
 	screen.blit(rendered, (532, 575))
-	# kegerator temp - tbd
-	# tower temp - tbd
-		
+			
 	
 	# Date / Time ==============================================================================================================
 	# Date & Time required internet access to initially set
