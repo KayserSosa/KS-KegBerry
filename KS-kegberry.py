@@ -1,7 +1,6 @@
 # File Name: KS-kegberry.py
-# Created By: Nick Kayser
-# With Help From: Andrew Fleer and P.J. Lorenz
-# Use: Displays information about the beers, how much is left in the kegs, date/time, and kegerator temperatures.
+# Created By: Kayser-Sosa, with help from ThatGuyYouKnow and JackBurtonn.
+# Use: Displays information about the beers, how much is left in the kegs, date/time, and kegerator temperature.
 
 # Code modified from - Adafruit Kegomatic
 # https://learn.adafruit.com/adafruit-keg-bot
@@ -11,7 +10,6 @@
 # store current values to another file, check file before reloading
 
 # TO DO YET, MAYBE
-# add temp to bottom left
 # justify text, left, right, center
 # resize text fonts according to space provided
 # maybe rotating backgrounds? if possible
@@ -78,10 +76,6 @@ TGREEN = (80,200,100) # PC Terminal Green
 RED = (255,0,0)
 ORANGE = (255,128,0)
 
-# Text Color for each beer
-BEER1Text = ORANGE
-BEER2Text = RED
-BEER3Text = WHITE
 
 # Text Backgroud Color for each beer
 BEER1Bg = BLACK
@@ -104,6 +98,7 @@ background = pygame.image.load('Beer-Background.jpg')
 # Rendering ====================================================================================================================
 def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 	pint, mug, pilsner, weizen, tulip, snifter, goblet,
+	BEER1Text, BEER2Text, BEER3Text,
 	beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
 	beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
 	beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic):
@@ -374,6 +369,7 @@ while True:
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 		pint, mug, pilsner, weizen, tulip, snifter, goblet,
+		BEER1Text, BEER2Text, BEER3Text,
 		beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
 		beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
 		beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic)

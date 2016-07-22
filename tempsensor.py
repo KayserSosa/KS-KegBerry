@@ -1,5 +1,5 @@
 # File Name: tempsensor.py
-# Created By: Nick Kayser
+# Created By: Kayser-Sosa
 # Use: Display temperatures using DS18B20 Temperature Sensors
 
 # Code modified from - Adafruit's Raspberry Pi Lesson 11. DS18B20 Temperature Sensing

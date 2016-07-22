@@ -1,6 +1,5 @@
-# File Name: KS-kegberry.py
-# Created By: Nick Kayser
-# With Help From: Andrew Fleer and P.J. Lorenz
+# File Name: flowmeter.py
+# Created By: Kayser-Sosa, with help from ThatGuyYouKnow and JackBurtonn.
 # Use: Displays information about the beers, how much is left in the kegs, date/time, and kegerator temperatures.
 
 # Code modified from - Adafruit Kegomatic
