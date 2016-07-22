@@ -1,8 +1,11 @@
-#!/usr/bin/python
+# File Name: KS-kegberry.py
+# Created By: Nick Kayser
+# With Help From: Andrew Fleer and P.J. Lorenz
+# Use: Displays information about the beers, how much is left in the kegs, date/time, and kegerator temperatures.
 
-# intro notes here
-# created by, etc...
-#help by fleer, pj
+# Code modified from - Adafruit Kegomatic
+# https://learn.adafruit.com/adafruit-keg-bot
+
 
 # convert liter to gal and back because didnt want to fig out flowmeter.py
 # store current values to another file, check file before reloading
@@ -12,6 +15,7 @@
 # justify text, left, right, center
 # resize text fonts according to space provided
 # maybe rotating backgrounds? if possible
+# remove all unwanted/unneeded items
 
 
 # Imports ======================================================================================================================
@@ -23,6 +27,7 @@ import pygame, sys
 from pygame.locals import *
 import RPi.GPIO as GPIO
 from flowmeter import *
+from tempsensor import *
 from beerinfo import *
 
 
@@ -56,7 +61,7 @@ flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
 
 
 # Read Saved Values from flowMeterValues.txt ++=================================================================================
-# The text file is in gallons and totalPour is in liters to a each needs to be converted from gal to L
+# The text file is in gallons and totalPour is in liters so each needs to be converted from gal to L
 with open(FILENAME,'r') as f:
 	lines = f.readlines()
 	flowMeter1.totalPour = float(lines[0]) * 3.7854
@@ -214,9 +219,10 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
 	rendered = screenfont.render("Right Tap", True, BEER3Text, BEER3Bg)
-	textRect = rendered.get_rect()
-	textRect.right = 800
-	screen.blit(rendered, textRect)
+	screen.blit(rendered, (532, 0))  # remove when right justified
+	#textRect = rendered.get_rect()
+	#textRect.right = 800
+	#screen.blit(rendered, textRect)
 	
 	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
 	#justify right
@@ -226,8 +232,6 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	if flowMeter3.enabled:
 		rendered = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, BEER3Text, BEER3Bg)
 		textRect = rendered.get_rect()
-		textRect.right = 800
-		#screen.blit(rendered, textRect)
 		screen.blit(rendered, (532, 60))
 				
 	# Beer 3 Name
@@ -278,8 +282,12 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	#screen.blit(rendered, newrendered)
 	
 	# Kegerator Temps ===========================================================================================================
+	screenfont = pygame.font.SysFont(None, 35)
+	rendered = screenfont.render("Kegerator: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
+	screen.blit(rendered, (532, 575))
 	# kegerator temp - tbd
 	# tower temp - tbd
+		
 	
 	# Date / Time ==============================================================================================================
 	# Date & Time required internet access to initially set
@@ -319,7 +327,7 @@ GPIO.add_event_detect(24, GPIO.RISING, callback=doAClick2, bouncetime=20) # Beer
 GPIO.add_event_detect(25, GPIO.RISING, callback=doAClick3, bouncetime=20) # Beer 3, on Pin 24
 
 
-# Erase & Save New Data =======================================================================================================
+# Erase & Save New Data to File +===============================================================================================
 def saveValues(flowMeter1, flowMeter2, flowMeter3):
 	f = open(FILENAME, 'w')
 	if flowMeter1.enabled == True:

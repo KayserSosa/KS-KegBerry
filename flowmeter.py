@@ -1,10 +1,18 @@
-#!/usr/bin/python
+# File Name: KS-kegberry.py
+# Created By: Nick Kayser
+# With Help From: Andrew Fleer and P.J. Lorenz
+# Use: Displays information about the beers, how much is left in the kegs, date/time, and kegerator temperatures.
+
+# Code modified from - Adafruit Kegomatic
+# https://learn.adafruit.com/adafruit-keg-bot
+
 
 # what can be removed from here?
 # dont think beverage is needed, have to remove it from main as well
 # getFormattedTotalPour - originally counted up, instead of down
 
 
+# Imports ======================================================================================================================
 import time
 import random
 

@@ -1,7 +1,6 @@
-#!/usr/bin/python
-
-# intro notes here
-# created by, etc...
+# File Name: KS-kegberry.py
+# Created By: Nick Kayser
+# Use: Displays information about the beers, how much is left in the kegs, date/time, and kegerator temperatures.
 
 # i only type on this screen
 
