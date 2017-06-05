@@ -102,7 +102,7 @@ SRM40 = (54,8,10) #36080A
 	
 # Beer 1 (Left Tap ) Variables =========================================================================================================
 beer1name = "No Keg" # 20 char limit
-beer1style = "Style" # notes about length here
+beer1style = "Style" # 19 char limit
 beer1OG = "OG: 0 SG" # layout like OG: #.### SG
 beer1ibu = "IBU: 0" # layout like IBU: ##.#
 beer1abv = "ABV: 0%/VOL" # layout like ABV: #.#%/VOL
@@ -112,7 +112,7 @@ BEER1Text = RED # text color based on the SRM value
 
 # Beer 2 (Middle Tap) Variables ========================================================================================================
 beer2name = "Cider" # 20 char limit
-beer2style = "Common Cider" # notes about length here
+beer2style = "Common Cider" # 19 char limit
 beer2OG = "OG: 1.048 SG" # layout like OG: #.### SG
 beer2ibu = "IBU: 0.0" # layout like IBU: ##.#
 beer2abv = "ABV: 6.04%/VOL" # layout like ABV: #.#%/VOL
@@ -122,7 +122,7 @@ BEER2Text = SRM2 # text color based on the SRM value
 
 # Beer 3 (Right Tap) Variables =========================================================================================================
 beer3name = "Hex Nut Brown Ale" # 20 char limit
-beer3style = "American Brown Ale" # notes about length here
+beer3style = "American Brown Ale" # 19 char limit
 beer3OG = "OG: 1.046 SG" # layout like OG: #.### SG
 beer3ibu = "IBU: 33.1" # layout like IBU: ##.#
 beer3abv = "ABV: 4.73%/VOL" # layout like ABV: #.#%/VOL
