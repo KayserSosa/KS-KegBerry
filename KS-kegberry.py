@@ -5,15 +5,8 @@
 # Code modified from - Adafruit Kegomatic
 # https://learn.adafruit.com/adafruit-keg-bot
 
-
-# convert liter to gal and back because didnt want to fig out flowmeter.py
-# store current values to another file, check file before reloading
-
-# TO DO YET, MAYBE
-# justify text, left, right, center
-# resize text fonts according to space provided
-# maybe rotating backgrounds? if possible
-# remove all unwanted/unneeded items
+# Converts liter to gal and back, didn't want to figure out the flowmeter.py code at this time.
+# Store current values to flowMeterValues.txt, checks file before reloading.
 
 
 # Imports ======================================================================================================================
@@ -50,13 +43,12 @@ pygame.mouse.set_visible(False)
 
 
 # Flow Meters Setup ============================================================================================================
-flowMeter1 = FlowMeter('gallon', ["beer"]) # Left Tap, Beer 1
-flowMeter2 = FlowMeter('gallon', ["beer"]) # Middle Tap, Beer 2
-flowMeter3 = FlowMeter('gallon', ["beer"]) # Right Tap, Beer 3
-# Inputs - FlowMeter('displayFormat', ['beverage'])
+flowMeter1 = FlowMeter('gallon') # Left Tap, Beer 1
+flowMeter2 = FlowMeter('gallon') # Middle Tap, Beer 2
+flowMeter3 = FlowMeter('gallon') # Right Tap, Beer 3
+# Inputs - FlowMeter('displayFormat')
 					# displayFormat (select ONE): liter, pint, gallon
-					# beverage = beer
-
+				
 
 # Read Saved Values from flowMeterValues.txt ++=================================================================================
 # The text file is in gallons and totalPour is in liters so each needs to be converted from gal to L
@@ -96,8 +88,9 @@ background = pygame.image.load('Beer-Background.jpg')
 
 
 # Rendering ====================================================================================================================
+# Text Formating - https://pygame-zero.readthedocs.io/en/latest/ptext.html
 def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
-	pint, mug, pilsner, weizen, tulip, snifter, goblet,
+	pint, mug, pilsner, weizen, tulip, snifter, goblet, teku, stange,
 	BEER1Text, BEER2Text, BEER3Text,
 	beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
 	beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
@@ -106,8 +99,6 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	# Clear the screen
 	screen.blit(background,(0,0))
 
-	#text formatting
-	#https://pygame-zero.readthedocs.io/en/latest/ptext.html
 	
 	# Beer 1 Details - Left Tap ================================================================================================
 	
@@ -120,7 +111,6 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	# Beer 1 Poured
 	if flowMeter1.enabled:
 		rendered = screenfont.render(flowMeter1.getFormattedTotalPour() + " / 5.0 gal", True, BEER1Text, BEER1Bg)
-		textRect = rendered.get_rect()
 		screen.blit(rendered, (0, 60))
 				
 	# Beer 1 Name
@@ -159,54 +149,50 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 2 Details - Middle Tap ==============================================================================================
 	
-	#https://stackoverflow.com/questions/32673965/pygame-blitting-center
-	#centering text
-	
-	
 	# Beer 2 Tap
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
 	rendered = screenfont.render("Middle Tap", True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 0))
-
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 0))
+	
 	# Beer 2 Poured
 	if flowMeter2.enabled:
 		rendered = screenfont.render(flowMeter2.getFormattedTotalPour() + " / 5.0 gal", True, BEER2Text, BEER2Bg)
-		textRect = rendered.get_rect()
-		screen.blit(rendered, (266, 60))
+		screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 60))
 				
 	# Beer 2 Name
 	screenfont = pygame.font.SysFont(None, 40)
 	rendered = screenfont.render(beer2name, True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 120))
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 120))
+	
 		
 	# Beer 2 Separator Line
 	screenfont = pygame.font.SysFont(None, 20)
 	rendered = screenfont.render('================================', True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 160))
-		
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 160))
+						
 	# Beer 2 Style
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer2style, True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 185))
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 185))
 	
 	# Beer 2 Original Gravity (OG)
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer2OG, True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 220))
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 220))
 	
 	# Beer 2 International Bittering Units (IBU)
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer2ibu, True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 255))
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 255))
 	
 	# Beer 2 Alcohol / Volume (ABV)
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer2abv, True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (266, 290))
+	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 290))
 	
 	# Beer 2 Glass
-	screen.blit(beer2glasspic, (266, 325))
+	screen.blit(beer2glasspic, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 325))
 	
 	# Beer 3 Details - Right Tap ===============================================================================================
 	
@@ -214,72 +200,52 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	screenfont = pygame.font.SysFont(None, 60)
 	screenfont.set_underline(1)
 	rendered = screenfont.render("Right Tap", True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 0))  # remove when right justified
-	#textRect = rendered.get_rect()
-	#textRect.right = 800
-	#screen.blit(rendered, textRect)
-	
-	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
-	#justify right
-	# how to move right aligned items down on screen
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 0))
 	
 	# Beer 3 Poured
 	if flowMeter3.enabled:
 		rendered = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, BEER3Text, BEER3Bg)
 		textRect = rendered.get_rect()
-		screen.blit(rendered, (532, 60))
+		screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 60))
 				
 	# Beer 3 Name
 	screenfont = pygame.font.SysFont(None, 40)
 	rendered = screenfont.render(beer3name, True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 120))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 120))
 		
 	# Beer 3 Separator Line
 	screenfont = pygame.font.SysFont(None, 20)
 	rendered = screenfont.render('================================', True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 160))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 160))
 		
 	# Beer 3 Style
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer3style, True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 185))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 185))
 	
 	# Beer 3 Original Gravity (OG)
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer3OG, True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 220))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 220))
 	
 	# Beer 3 International Bittering Units (IBU)
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer3ibu, True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 255))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 255))
 	
 	# Beer 3 Alcohol / Volume (ABV)
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(beer3abv, True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, (532, 290))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 290))
 	
 	# Beer 3 Glass
-	screen.blit(beer3glasspic, (532, 325))
+	screen.blit(beer3glasspic, ((VIEW_WIDTH - rendered.get_rect().width), 325))
 
-	#https://stackoverflow.com/questions/34013119/pygame-text-anchor-right
-	#justiry right testing
-	
-		
-	#screenfont = pygame.font.SysFont(None, 35)
-	#text = screenfont.render("right justified test", True, BEER3Text, BEER3Bg)
-	#textpos = text.get_rect()
-	#textpos.centerx = background.get_rect().centerx
-	#screen.blit(text, textpos)
-	
-	#newrendered = rendered.get_rect(right=(532, 600)
-	#newrendered.right = 500
-	#screen.blit(rendered, newrendered)
 	
 	# Kegerator Temps ===========================================================================================================
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render("Kegerator Temp: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
-	screen.blit(rendered, (532, 575))
+	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 575))
 			
 	
 	# Date / Time ==============================================================================================================
@@ -352,23 +318,11 @@ while True:
 			flowMeter2.clear()
 		elif event.type == KEYUP and event.key == K_0:
 			flowMeter3.clear()
-  
-	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
-  
-	# is this needed? ====================================================================
-	# Reset flowmeters after each pour (2 secs of inactivity)
-#	if (flowMeter1.thisPour <= 0.23 and currentTime - flowMeter1.lastClick > 2000):
-#		flowMeter1.thisPour = 0.0
-    
-#	if (flowMeter2.thisPour <= 0.23 and currentTime - flowMeter2.lastClick > 2000):
-#		flowMeter2.thisPour = 0.0
-		
-#	if (flowMeter3.thisPour <= 0.23 and currentTime - flowMeter3.lastClick > 2000):
-#		flowMeter3.thisPour = 0.0
+  	currentTime = int(time.time() * FlowMeter.MS_IN_A_SECOND)
 
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
-		pint, mug, pilsner, weizen, tulip, snifter, goblet,
+		pint, mug, pilsner, weizen, tulip, snifter, goblet, teku, stange,
 		BEER1Text, BEER2Text, BEER3Text,
 		beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
 		beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,

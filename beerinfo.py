@@ -1,7 +1,7 @@
 # File Name: beerinfo.py
 # Created By: Kayser-Sosa
 # Use: Holds the variables for the beers.
-# Only edit these variables, copy to raspberry pi, rerun KS-kegberry.py
+# Only edit these variables, copy to Raspberry Pi, rerun KS-kegberry.py
 
 
 # Imports ======================================================================================================================
@@ -11,28 +11,34 @@ from pygame.locals import *
 
 # Beer Glass Image Variables ===================================================================================================
 pint = pygame.image.load('pint.jpg')
-#pint = pygame.transform.scale(pint,(150,150)) # update to correct size
-	
-mug = pygame.image.load('mug.jpg')
-#mug = pygame.transform.scale(mug,(100,100)) # update to correct size
-	
-pilsner = pygame.image.load('pilsner.jpg')
-#pilsner = pygame.transform.scale(pilsner,(100,100)) # update to correct size
-	
+pint = pygame.transform.scale(pint,(125,225))
+
 weizen = pygame.image.load('weizen.jpg')
-#weizen = pygame.transform.scale(weizen,(100,100)) # update to correct size
+weizen = pygame.transform.scale(weizen,(125,225))
+
+goblet = pygame.image.load('goblet.jpg')
+goblet = pygame.transform.scale(goblet,(125,225))
 	
 tulip = pygame.image.load('tulip.jpg')
-#tulip = pygame.transform.scale(tulip,(100,100)) # update to correct size
-	
+tulip = pygame.transform.scale(tulip,(125,225))
+
 snifter = pygame.image.load('snifter.jpg')
-#snifter = pygame.transform.scale(snifter,(100,100)) # update to correct size
+snifter = pygame.transform.scale(snifter,(125,225))
 	
-goblet = pygame.image.load('goblet.jpg')
-#goblet = pygame.transform.scale(goblet,(100,100)) # update to correct size
+mug = pygame.image.load('mug.jpg')
+mug = pygame.transform.scale(mug,(125,225))
+	
+teku = pygame.image.load('teku.jpg')
+teku = pygame.transform.scale(teku,(125,225))
+
+stange = pygame.image.load('stange.jpg')
+stange = pygame.transform.scale(stange,(125,225))
+
+pilsner = pygame.image.load('pilsner.jpg')
+pilsner = pygame.transform.scale(pilsner,(125,225))
 
 nokeg = pygame.image.load('nokeg.jpg')
-#nokeg = pygame.transform.scale(nokeg,(100,100)) # update to correct size
+nokeg = pygame.transform.scale(nokeg,(125,225))
 
 
 # Text Color Based On SRM Value ================================================================================================
@@ -83,32 +89,42 @@ SRM38 = (59,6,7) #3B0607
 SRM39 = (58,7,11) #3A070B
 SRM40 = (54,8,10) #36080A
 
+# ABV Calculator
+# https://www.brewersfriend.com/abv-calculator/
+
+# IBU Calculator
+# https://www.brewersfriend.com/ibu-calculator/
+
+# SRM Calculator
+# https://www.brewersfriend.com/srm-calculator/
+# http://www.franklinbrew.org/wp/wp-content/uploads/2011/01/srm.jpg
+
 	
 # Beer 1 (Left Tap ) Variables =========================================================================================================
-beer1name = "N/A" # notes about length here
-beer1style = "N/A" # notes about length here
-beer1OG = "OG: N/A" # notes about layout here
-beer1ibu = "IBU: N/A" # notes about layout here
-beer1abv = "ABV: N/A" # notes about layout here
+beer1name = "No Keg" # 20 char limit
+beer1style = "Style" # notes about length here
+beer1OG = "OG: 0 SG" # layout like OG: #.### SG
+beer1ibu = "IBU: 0" # layout like IBU: ##.#
+beer1abv = "ABV: 0%/VOL" # layout like ABV: #.#%/VOL
 beer1glasspic = nokeg # select from Beer Glass Variables
 BEER1Text = RED # text color based on the SRM value
 		
 
 # Beer 2 (Middle Tap) Variables ========================================================================================================
-beer2name = "Solitaire Session Ale" # notes about length here
-beer2style = "English Pale Ale" # notes about length here
-beer2OG = "OG: 1.050 SG" # notes about layout here
-beer2ibu = "IBU: 46.6" # notes about layout here
-beer2abv = "ABV: 5.1%/VOL" # notes about layout here
-beer2glasspic = pint # select from Beer Glass Variables
-BEER2Text = SRM3 # text color based on the SRM value
+beer2name = "Cider" # 20 char limit
+beer2style = "Common Cider" # notes about length here
+beer2OG = "OG: 1.048 SG" # layout like OG: #.### SG
+beer2ibu = "IBU: 0.0" # layout like IBU: ##.#
+beer2abv = "ABV: 6.04%/VOL" # layout like ABV: #.#%/VOL
+beer2glasspic = teku # select from Beer Glass Variables
+BEER2Text = SRM2 # text color based on the SRM value
 		
 
 # Beer 3 (Right Tap) Variables =========================================================================================================
-beer3name = "Liberty Cream Ale" # notes about length here
-beer3style = "American Amber Ale" # notes about length here
-beer3OG = "OG: 1.046 SG" # notes about layout here
-beer3ibu = "IBU: 16.7" # notes about layout here
-beer3abv = "ABV: 4.7%/VOL" # notes about layout here
-beer3glasspic = mug # select from Beer Glass Variables
-BEER3Text = SRM4 # text color based on the SRM value
+beer3name = "Hex Nut Brown Ale" # 20 char limit
+beer3style = "American Brown Ale" # notes about length here
+beer3OG = "OG: 1.046 SG" # layout like OG: #.### SG
+beer3ibu = "IBU: 33.1" # layout like IBU: ##.#
+beer3abv = "ABV: 4.73%/VOL" # layout like ABV: #.#%/VOL
+beer3glasspic = pint # select from Beer Glass Variables
+BEER3Text = SRM23 # text color based on the SRM value
