@@ -70,9 +70,9 @@ ORANGE = (255,128,0)
 
 
 # Text Backgroud Color for each beer
-BEER1Bg = BLACK
-BEER2Bg = BLACK
-BEER3Bg = BLACK
+BEER1Bg = None
+BEER2Bg = None
+BEER3Bg = None
 
 
 # Window Surface Setup =========================================================================================================
