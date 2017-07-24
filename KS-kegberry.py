@@ -101,6 +101,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 
 	
 	# Beer 1 Details - Left Tap ================================================================================================
+	# Left Justified
 	
 	# Beer 1 Tap
 	screenfont = pygame.font.SysFont(None, 60)
@@ -148,6 +149,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 
 	
 	# Beer 2 Details - Middle Tap ==============================================================================================
+	# Center Justified
 	
 	# Beer 2 Tap
 	screenfont = pygame.font.SysFont(None, 60)
@@ -195,6 +197,7 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	screen.blit(beer2glasspic, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 325))
 	
 	# Beer 3 Details - Right Tap ===============================================================================================
+	# Right Justified
 	
 	# Beer 3 Tap
 	screenfont = pygame.font.SysFont(None, 60)
@@ -243,13 +246,16 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 
 	
 	# Kegerator Temps ===========================================================================================================
+	# Using Pin 4
+	# Left Justified	
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render("Kegerator Temp: " + str(round(read_temp(),1)) + " F", True, WHITE, BLACK)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 575))
 			
 	
 	# Date / Time ==============================================================================================================
-	# Date & Time required internet access to initially set
+	# Date & Time required internet access to initially set & on reboots
+	# Right Justified
 	screenfont = pygame.font.SysFont(None, 35)
 	rendered = screenfont.render(time.strftime("%I:%M:%S %p - %Y/%m/%d"), True, WHITE, BLACK)
 	screen.blit(rendered, (0, 575))
