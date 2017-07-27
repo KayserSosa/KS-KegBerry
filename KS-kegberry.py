@@ -91,10 +91,9 @@ background = pygame.image.load('Beer-Background.jpg')
 # Text Formating - https://pygame-zero.readthedocs.io/en/latest/ptext.html
 def renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 	pint, mug, pilsner, weizen, tulip, snifter, goblet, teku, stange,
-	BEER1Text, BEER2Text, BEER3Text,
-	beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
-	beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
-	beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic):
+	beer1name, beer1srm, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic, beer1textcolor,
+	beer2name, beer2srm, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic, beer2textcolor,
+	beer3name, beer3srm, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic, beer3textcolor):
 
 	# Clear the screen
 	screen.blit(background,(0,0))
@@ -105,43 +104,45 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 1 Tap
 	screenfont = pygame.font.SysFont(None, 60)
-	screenfont.set_underline(1)
-	rendered = screenfont.render("Left Tap", True, BEER1Text, BEER1Bg)
+	rendered = screenfont.render("Left Tap", True, beer1textcolor, BEER1Bg)
 	screen.blit(rendered, (0, 0))
-	
+		
 	# Beer 1 Poured
+	screenfont.set_underline(1)
 	if flowMeter1.enabled:
-		rendered = screenfont.render(flowMeter1.getFormattedTotalPour() + " / 5.0 gal", True, BEER1Text, BEER1Bg)
+		rendered = screenfont.render(flowMeter1.getFormattedTotalPour() + " / 5.0 gal", True, beer1textcolor, BEER1Bg)
 		screen.blit(rendered, (0, 60))
+	screenfont.set_underline(0)
 				
 	# Beer 1 Name
 	screenfont = pygame.font.SysFont(None, 40)
-	rendered = screenfont.render(beer1name, True, BEER1Text, BEER1Bg)
+	rendered = screenfont.render(beer1name, True, beer1textcolor, BEER1Bg)
 	screen.blit(rendered, (0, 120))
 		
-	# Beer 1 Separator Line
-	screenfont = pygame.font.SysFont(None, 20)
-	rendered = screenfont.render('================================', True, BEER1Text, BEER1Bg)
-	screen.blit(rendered, (0, 160))
-		
+	# Beer 1 SRM (Color) Line Separator
+	pygame.draw.rect(screen, beer1srm, [0,158,256,20])
+	#screenfont = pygame.font.SysFont(None, 20)
+	#rendered = screenfont.render('================================', True, beer1textcolor, BEER1Bg)
+	#screen.blit(rendered, (0, 160))
+			
 	# Beer 1 Style
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1style, True, BEER1Text, BEER1Bg)
+	rendered = screenfont.render(beer1style, True, beer1textcolor, BEER1Bg)
 	screen.blit(rendered, (0, 185))
 	
 	# Beer 1 Original Gravity (OG)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1OG, True, BEER1Text, BEER1Bg)
+	rendered = screenfont.render(beer1OG, True, beer1textcolor, BEER1Bg)
 	screen.blit(rendered, (0, 220))
 	
 	# Beer 1 International Bittering Units (IBU)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1ibu, True, BEER1Text, BEER1Bg)
+	rendered = screenfont.render(beer1ibu, True, beer1textcolor, BEER1Bg)
 	screen.blit(rendered, (0, 255))
 	
 	# Beer 1 Alcohol / Volume (ABV)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer1abv, True, BEER1Text, BEER1Bg)
+	rendered = screenfont.render(beer1abv, True, beer1textcolor, BEER1Bg)
 	screen.blit(rendered, (0, 290))
 	
 	# Beer 1 Glass
@@ -153,44 +154,45 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 2 Tap
 	screenfont = pygame.font.SysFont(None, 60)
-	screenfont.set_underline(1)
-	rendered = screenfont.render("Middle Tap", True, BEER2Text, BEER2Bg)
+	rendered = screenfont.render("Middle Tap", True, beer2textcolor, BEER2Bg)
 	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 0))
 	
 	# Beer 2 Poured
+	screenfont.set_underline(1)
 	if flowMeter2.enabled:
-		rendered = screenfont.render(flowMeter2.getFormattedTotalPour() + " / 5.0 gal", True, BEER2Text, BEER2Bg)
+		rendered = screenfont.render(flowMeter2.getFormattedTotalPour() + " / 5.0 gal", True, beer2textcolor, BEER2Bg)
 		screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 60))
+	screenfont.set_underline(0)
 				
 	# Beer 2 Name
 	screenfont = pygame.font.SysFont(None, 40)
-	rendered = screenfont.render(beer2name, True, BEER2Text, BEER2Bg)
+	rendered = screenfont.render(beer2name, True, beer2textcolor, BEER2Bg)
 	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 120))
-	
 		
-	# Beer 2 Separator Line
-	screenfont = pygame.font.SysFont(None, 20)
-	rendered = screenfont.render('================================', True, BEER2Text, BEER2Bg)
-	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 160))
-						
+	# Beer 2 SRM (Color) Line Separator
+	pygame.draw.rect(screen, beer2srm, [272,158,256,20])
+	#screenfont = pygame.font.SysFont(None, 20)
+	#rendered = screenfont.render('================================', True, beer2textcolor, BEER2Bg)
+	#screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 160))
+							
 	# Beer 2 Style
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer2style, True, BEER2Text, BEER2Bg)
+	rendered = screenfont.render(beer2style, True, beer2textcolor, BEER2Bg)
 	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 185))
 	
 	# Beer 2 Original Gravity (OG)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer2OG, True, BEER2Text, BEER2Bg)
+	rendered = screenfont.render(beer2OG, True, beer2textcolor, BEER2Bg)
 	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 220))
 	
 	# Beer 2 International Bittering Units (IBU)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer2ibu, True, BEER2Text, BEER2Bg)
+	rendered = screenfont.render(beer2ibu, True, beer2textcolor, BEER2Bg)
 	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 255))
 	
 	# Beer 2 Alcohol / Volume (ABV)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer2abv, True, BEER2Text, BEER2Bg)
+	rendered = screenfont.render(beer2abv, True, beer2textcolor, BEER2Bg)
 	screen.blit(rendered, (((VIEW_WIDTH / 2) - (rendered.get_rect().width / 2)), 290))
 	
 	# Beer 2 Glass
@@ -201,44 +203,45 @@ def renderThings(flowMeter1, flowMeter2, flowMeter3, screen,
 	
 	# Beer 3 Tap
 	screenfont = pygame.font.SysFont(None, 60)
-	screenfont.set_underline(1)
-	rendered = screenfont.render("Right Tap", True, BEER3Text, BEER3Bg)
+	rendered = screenfont.render("Right Tap", True, beer3textcolor, BEER3Bg)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 0))
 	
 	# Beer 3 Poured
+	screenfont.set_underline(1)
 	if flowMeter3.enabled:
-		rendered = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, BEER3Text, BEER3Bg)
-		textRect = rendered.get_rect()
+		rendered = screenfont.render(flowMeter3.getFormattedTotalPour() + " / 5.0 gal", True, beer3textcolor, BEER3Bg)
 		screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 60))
+	screenfont.set_underline(0)
 				
 	# Beer 3 Name
 	screenfont = pygame.font.SysFont(None, 40)
-	rendered = screenfont.render(beer3name, True, BEER3Text, BEER3Bg)
+	rendered = screenfont.render(beer3name, True, beer3textcolor, BEER3Bg)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 120))
 		
-	# Beer 3 Separator Line
-	screenfont = pygame.font.SysFont(None, 20)
-	rendered = screenfont.render('================================', True, BEER3Text, BEER3Bg)
-	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 160))
+	# Beer 3 SRM (Color) Line Separator
+	pygame.draw.rect(screen, beer3srm, [(VIEW_WIDTH - rendered.get_rect().width),158,256,20])
+	#screenfont = pygame.font.SysFont(None, 20)
+	#rendered = screenfont.render('================================', True, beer3textcolor, BEER3Bg)
+	#screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 160))
 		
 	# Beer 3 Style
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer3style, True, BEER3Text, BEER3Bg)
+	rendered = screenfont.render(beer3style, True, beer3textcolor, BEER3Bg)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 185))
 	
 	# Beer 3 Original Gravity (OG)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer3OG, True, BEER3Text, BEER3Bg)
+	rendered = screenfont.render(beer3OG, True, beer3textcolor, BEER3Bg)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 220))
 	
 	# Beer 3 International Bittering Units (IBU)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer3ibu, True, BEER3Text, BEER3Bg)
+	rendered = screenfont.render(beer3ibu, True, beer3textcolor, BEER3Bg)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 255))
 	
 	# Beer 3 Alcohol / Volume (ABV)
 	screenfont = pygame.font.SysFont(None, 35)
-	rendered = screenfont.render(beer3abv, True, BEER3Text, BEER3Bg)
+	rendered = screenfont.render(beer3abv, True, beer3textcolor, BEER3Bg)
 	screen.blit(rendered, ((VIEW_WIDTH - rendered.get_rect().width), 290))
 	
 	# Beer 3 Glass
@@ -329,7 +332,6 @@ while True:
 	# Update the screen
 	renderThings(flowMeter1, flowMeter2, flowMeter3, screen, 
 		pint, mug, pilsner, weizen, tulip, snifter, goblet, teku, stange,
-		BEER1Text, BEER2Text, BEER3Text,
-		beer1name, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic,
-		beer2name, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic,
-		beer3name, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic)
+		beer1name, beer1srm, beer1style, beer1OG, beer1ibu, beer1abv, beer1glasspic, beer1textcolor,
+		beer2name, beer2srm, beer2style, beer2OG, beer2ibu, beer2abv, beer2glasspic, beer2textcolor,
+		beer3name, beer3srm, beer3style, beer3OG, beer3ibu, beer3abv, beer3glasspic, beer3textcolor)
